@@ -1,4 +1,4 @@
-# Sorting Algorithm Visualization
+# WORK IN PROGRESS
 
 Sorting Algorithm Visualization made in Python
 
