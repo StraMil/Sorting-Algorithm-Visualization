@@ -106,11 +106,13 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
 
         if click[0] == 1:
             SCREEN.fill((255,255,255))
+            bars.clear()
             for i in range(num_bars):
                 height = random.randint(-num_bars, -1)
                 print(height)
                 x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
                 drawBar(x,height)
+            print(bars)
             #pygame.display.update()
 
     else:
