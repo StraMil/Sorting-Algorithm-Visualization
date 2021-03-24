@@ -17,7 +17,7 @@ Quick Sort <br />
 Heap Sort <br />
 Counting Sort <br />
 
-## Instaling pygame
+## Installing pygame
 ```bash
 pip install pygame
 ```
