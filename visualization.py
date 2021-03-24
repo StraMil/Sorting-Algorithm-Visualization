@@ -4,10 +4,10 @@ import random
 import time
 
 WIDTH = 1280
-HEIGHT = 720
+HEIGHT = 400
 BLACK = pygame.Color(0, 0, 0)
 
-num_bars = 200
+num_bars = 50
 bar_witdh = 800/num_bars
 space = 400/num_bars
 sorting = False
@@ -58,18 +58,33 @@ def bubbleSort(bars):
                 #pygame.draw.rect(SCREEN, ((0, 255, 255)), (x, 690, bar_witdh, bars[k]/(k+1)), 0, 6)
             #pygame.display.update()
             #time.sleep(1)
-            if bars[j] > bars[j + 1]:
+            if bars[j] < bars[j + 1]:
                 bars[j], bars[j + 1] = bars[j + 1], bars[j]
                 print(bars)
                 SCREEN.fill((255,255,255))
                 for k in range(len(bars)):
                     x = (k * bar_witdh) + (k * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
-                    blue = bars[k] * (-1)
-                    green = 255 - blue
-                    #pygame.draw.rect(SCREEN, ((0, green, blue)), (x, 690, bar_witdh, bars[k]), 0, 6)
-                    op(x, bars[k], green, blue)
+                    if bars[k] is bars[j+1]:
+                        red = 255
+                        green = 130
+                        blue = 80
+                        last = k
+                    else:
+                        red = 0
+                        blue = bars[k] * (-1)
+                        green = 255 - blue
+                    pygame.draw.rect(SCREEN, ((red, green, blue)), (x, 370, bar_witdh, bars[k]), 0, 6)
+                    #op(x, bars[k], green, blue)
                 pygame.display.update()
-                time.sleep(0.0001)
+                time.sleep(0.05)
+
+    red = 0
+    blue = bars[last] * (-1)
+    green = 255 - blue
+    x = (last * bar_witdh) + (last * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
+    pygame.draw.rect(SCREEN, ((red, green, blue)), (x, 370, bar_witdh, bars[last]), 0, 6)
+    pygame.display.update()
+    print(last)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -77,7 +92,17 @@ def bubbleSort(bars):
                 sys.exit()
 
 def op(x, height, g, b):
-    pygame.draw.rect(SCREEN, ((0, g, b)), (x, 690, bar_witdh, height), 0, 6)
+    pygame.draw.rect(SCREEN, ((0, g, b)), (x, 370, bar_witdh, height), 0, 6)
+
+def getHeight(num_bars):
+    if num_bars <= 50:
+        return 5
+    if num_bars <= 100:
+        return 2.5
+    if num_bars <= 200:
+        return 1.25
+    else:
+        return 1
 
 def buttonSort(msg, x, y, w, h, ic, ac):
     mouse = pygame.mouse.get_pos()
@@ -107,8 +132,10 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
         if click[0] == 1:
             SCREEN.fill((255,255,255))
             bars.clear()
+            mulitplayer = getHeight(num_bars)
+            print(mulitplayer)
             for i in range(num_bars):
-                height = random.randint(-num_bars, -1)
+                height = random.randint(-num_bars*mulitplayer, -5)
                 print(height)
                 x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
                 drawBar(x,height)
@@ -124,7 +151,7 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
 def drawBar(x,height):
     blue = height * (-1)
     green = 255-blue
-    pygame.draw.rect(SCREEN, (0,green,blue), (x, 690, bar_witdh, height), 0, 6)
+    pygame.draw.rect(SCREEN, (0,green,blue), (x, 370, bar_witdh, height), 0, 6)
     #pygame.draw.rect(SCREEN, BLUE, (x, 690, bar_witdh, height), 2)
     if not sorting:
         bars.append(height)
@@ -146,8 +173,8 @@ def drawBar(x,height):
 
 # Game Loop
 while True:
-    buttonSort("Sort", 100 + 200-75/2, 200-25, 75, 50, (230, 230, 230), (200, 200, 200))
-    buttonNewArray("New", 200-75/2, 200-25, 75, 50, (230, 230, 230), (200, 200, 200))
+    buttonSort("Sort", 100 + 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
+    buttonNewArray("New", 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
     pygame.display.update()
 
     if sorting:
