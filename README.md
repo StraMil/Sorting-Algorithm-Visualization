@@ -8,14 +8,14 @@ Made with [pygame](https://www.pygame.org/) library
 
 Bubble Sort
 
-# #To be added
+## To be added
 
-Insertion Sort \n
-Merge Sort
-Bucket Sort
-Quick Sort
-Heap Sort
-Counting Sort
+Insertion Sort <br />
+Merge Sort <br />
+Bucket Sort <br />
+Quick Sort <br />
+Heap Sort <br />
+Counting Sort <br />
 
 ## Instaling pygame
 ```bash
