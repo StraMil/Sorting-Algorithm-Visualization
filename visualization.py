@@ -28,7 +28,7 @@ SCREEN = pygame.display.set_mode((WIDTH,HEIGHT))
 SCREEN.fill((255,255,255))
 pygame.display.update()
 
-def bubbleSort(array):
+def test(array):
     n = len(array)
     for i in range(n):
         for j in range(0, n-1-i):
@@ -48,7 +48,7 @@ def bubbleSort(array):
                 pygame.quit()
                 sys.exit()
 
-def test(bars):
+def bubbleSort(bars):
     sorting = False
     for i in range(len(bars)-1):
         for j in range(0, len(bars)-1-i):
@@ -65,8 +65,9 @@ def test(bars):
                 for k in range(len(bars)):
                     x = (k * bar_witdh) + (k * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
                     blue = bars[k] * (-1)
-                    green = 255-blue
-                    pygame.draw.rect(SCREEN, ((0, green, blue)), (x, 690, bar_witdh, bars[k]), 0, 6)
+                    green = 255 - blue
+                    #pygame.draw.rect(SCREEN, ((0, green, blue)), (x, 690, bar_witdh, bars[k]), 0, 6)
+                    op(x, bars[k], green, blue)
                 pygame.display.update()
                 time.sleep(0.0001)
     while True:
@@ -75,6 +76,8 @@ def test(bars):
                 pygame.quit()
                 sys.exit()
 
+def op(x, height, g, b):
+    pygame.draw.rect(SCREEN, ((0, g, b)), (x, 690, bar_witdh, height), 0, 6)
 
 def buttonSort(msg, x, y, w, h, ic, ac):
     mouse = pygame.mouse.get_pos()
@@ -108,7 +111,7 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
                 print(height)
                 x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
                 drawBar(x,height)
-            pygame.display.update()
+            #pygame.display.update()
 
     else:
         pygame.draw.rect(SCREEN, ic, (x, y, w, h), 0)
@@ -116,7 +119,7 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
     text = font.render(msg, True, (0, 0, 0))
     SCREEN.blit(text, (x + 10, y + 10))
 
-def drawBar(i,height):
+def drawBar(x,height):
     blue = height * (-1)
     green = 255-blue
     pygame.draw.rect(SCREEN, (0,green,blue), (x, 690, bar_witdh, height), 0, 6)
@@ -124,11 +127,11 @@ def drawBar(i,height):
     if not sorting:
         bars.append(height)
 
-for i in range(num_bars):
-    height = random.randint(-num_bars+5, -5)
-    print(height)
-    x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
-    drawBar(x,height)
+# for i in range(num_bars):
+#     height = random.randint(-num_bars+5, -5)
+#     print(height)
+#     x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
+#     drawBar(x,height)
 
 
 # for i in range(num_bars):
@@ -155,4 +158,4 @@ while True:
 
 
 #bubbleSort(bars)
-test(bars)
+bubbleSort(bars)
