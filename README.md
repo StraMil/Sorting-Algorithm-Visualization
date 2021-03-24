@@ -4,13 +4,13 @@ Sorting Algorithm Visualization made in Python
 
 Made with [pygame](https://www.pygame.org/) library
 
-# Types of sorting algortihms
+## Types of sorting algortihms
 
 Bubble Sort
 
-# To be added
+# #To be added
 
-Insertion Sort
+Insertion Sort \n
 Merge Sort
 Bucket Sort
 Quick Sort
