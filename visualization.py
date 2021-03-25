@@ -118,8 +118,6 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
     else:
         pygame.draw.rect(SCREEN, ic, (x, y, w, h), 0)
 
-#asdjiasdfiu
-
     text = font.render(msg, True, (0, 0, 0))
     SCREEN.blit(text, (x + 10, y + 10))
 
