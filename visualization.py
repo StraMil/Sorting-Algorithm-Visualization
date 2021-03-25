@@ -55,7 +55,7 @@ def bubbleSort(bars):
                 buttonNewArray("New", 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
                 showNumOfCycles(cycles)
                 pygame.display.update()
-                #time.sleep(0.0001)
+                #time.sleep(1)
             cycles = cycles + 1
 
     red = 0
@@ -67,6 +67,10 @@ def bubbleSort(bars):
     print(last)
 
 def getHeight(num_bars):
+    if num_bars <= 10:
+        return 25
+    if num_bars <= 25:
+        return 10
     if num_bars <= 50:
         return 5
     if num_bars <= 100:
@@ -109,7 +113,7 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
             mulitplayer = getHeight(num_bars)
             print(mulitplayer)
             for i in range(num_bars):
-                height = random.randint(-num_bars*mulitplayer, -5)
+                height = random.randint(-num_bars*mulitplayer, -1)
                 print(height)
                 x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
                 drawBar(x,height)
