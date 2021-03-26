@@ -7,10 +7,11 @@ WIDTH = 1280
 HEIGHT = 400
 BLACK = pygame.Color(0, 0, 0)
 
-num_bars = 200
+num_bars = 20
 bar_witdh = 800/num_bars
 space = 400/num_bars
 sorting = False
+array = []
 bars = []
 cycles = 0
 
@@ -37,7 +38,7 @@ def bubbleSort(bars):
         for j in range(0, len(bars)-1-i):
             if bars[j] < bars[j + 1]:
                 bars[j], bars[j + 1] = bars[j + 1], bars[j]
-                print(bars)
+                #print(bars)
                 SCREEN.fill((255,255,255))
                 for k in range(len(bars)):
                     x = (k * bar_witdh) + (k * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
@@ -53,6 +54,7 @@ def bubbleSort(bars):
                     pygame.draw.rect(SCREEN, ((red, green, blue)), (x, 365, bar_witdh, bars[k]), 0, 6)
                 buttonSort("Sort", 105 + 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
                 buttonNewArray("New", 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
+                resetArray("Reset", 210 + 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
                 showNumOfCycles(cycles)
                 pygame.display.update()
                 #time.sleep(1)
@@ -64,7 +66,7 @@ def bubbleSort(bars):
     x = (last * bar_witdh) + (last * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
     pygame.draw.rect(SCREEN, ((red, green, blue)), (x, 365, bar_witdh, bars[last]), 0, 6)
     pygame.display.update()
-    print(last)
+    #print(last)
 
 def getHeight(num_bars):
     if num_bars <= 10:
@@ -110,20 +112,50 @@ def buttonNewArray(msg, x, y, w, h, ic, ac):
             cycles = 0
             SCREEN.fill((255,255,255))
             bars.clear()
+            array.clear()
             mulitplayer = getHeight(num_bars)
-            print(mulitplayer)
+            #print(mulitplayer)
             for i in range(num_bars):
                 height = random.randint(-num_bars*mulitplayer, -1)
-                print(height)
+                array.append(height)
+                #print(height)
                 x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
                 drawBar(x,height)
-            print(bars)
+            print("New", bars)
 
     else:
         pygame.draw.rect(SCREEN, ic, (x, y, w, h), 0)
 
     text = font.render(msg, True, (0, 0, 0))
     SCREEN.blit(text, (x + 10, y + 10))
+
+def resetArray(msg, x, y, w, h, ic, ac):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    bars = []
+    sorting = False
+
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        pygame.draw.rect(SCREEN, ac, (x,y,w,h), 0)
+
+        bars = []
+        sorting = False
+
+        if click[0] == 1:
+            SCREEN.fill((255,255,255))
+            for i in range(num_bars):
+                x = (i * bar_witdh) + (i * space) + (WIDTH - (num_bars * bar_witdh + num_bars * space))/2
+                drawBar(x,array[i])
+
+        print("Reset", bars)
+        
+    else:
+        pygame.draw.rect(SCREEN, ic, (x, y, w, h), 0)
+
+    text = font.render(msg, True, (0, 0, 0))
+    SCREEN.blit(text, (x + 10, y + 10))
+
 
 def showNumOfCycles(cicles):
     cicle = font.render("Cycles: " + str(cicles), True, (0,0,0))
@@ -136,10 +168,11 @@ def drawBar(x,height):
     if not sorting:
         bars.append(height)
 
-# Game Loop
+# Loop
 while True:
     buttonSort("Sort", 105 + 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
     buttonNewArray("New", 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
+    resetArray("Reset", 210 + 30, 30, 75, 50, (230, 230, 230), (200, 200, 200))
     pygame.display.update()
 
     if sorting:
